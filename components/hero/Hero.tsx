@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { site } from '@/content/site';
 import { SceneFallback } from './SceneFallback';
+import { SceneIsland } from './SceneIsland';
 
 export function Hero() {
   return (
@@ -69,9 +70,9 @@ export function Hero() {
             className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line-2 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.08),transparent_60%)] sm:aspect-[5/4] lg:aspect-auto lg:min-h-[520px]"
             aria-hidden
           >
-            {/* Static fallback. The R3F scene (Phase 6) overlays this and replaces it on hydration. */}
+            {/* Static fallback ships in the initial HTML; the R3F island mounts on top. */}
             <SceneFallback />
-            <SceneFallback compact className="lg:hidden" />
+            <SceneIsland />
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_60%,#060607_100%)]"
