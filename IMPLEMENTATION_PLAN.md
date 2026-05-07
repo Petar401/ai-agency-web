@@ -99,20 +99,29 @@ ai-agency-web/
 
 **Footer**: Norwich address placeholder, email/phone placeholders, service links, legal placeholders, socials placeholders.
 
-## 6. 3D Scene Spec (`components/hero/NodeGraph.tsx`)
+## 6. 3D Scene Spec (`components/hero/HologramTabs.tsx`)
 
-- ~28 nodes via a single `InstancedMesh` of low-poly icospheres (radius 0.08, 1 segment).
-- Edges via a single `LineSegments` with prebuilt `BufferGeometry`; subtle alpha pulse over time.
+_Updated direction (per user reference video `gemini_generated_video_10B4D1DB.mp4`): floating holographic service tabs in 3D space rather than a node graph. Same metaphor — connected systems — expressed as glassy panels for each service, drifting slowly with subtle parallax. Files renamed from `NodeGraph.tsx` to `HologramTabs.tsx`._
+
+- 6 holographic service tabs (one per service), each a `RoundedPlaneGeometry` (~1.4 × 0.9 units) with a custom `ShaderMaterial`:
+  - Thin neon-edge border (1 px screen-space, anti-aliased in fragment shader).
+  - Soft fresnel rim glow (cheap, no env map).
+  - Faint scanline + noise overlay for the hologram feel.
+  - Service icon + label rendered as drei `<Text>` (SDF, no DOM overlay) so it stays sharp at any zoom.
+- Tabs are arranged on a gentle arc / parallax-staggered z-depth (3 layers).
+- Subtle connecting filaments between adjacent tabs as a single `LineSegments` with additive blending — keeps the "connected systems" metaphor.
 - `PerspectiveCamera` fov 35; slow lissajous drift ±0.4 units; dampened pointer parallax.
-- Lighting: one `hemisphereLight` + one rim `directionalLight`. No shadows. No postprocessing in v1.
-- Triangles < 4k. DPR clamped to `min(devicePixelRatio, 1.75)`.
+- Lighting: one `hemisphereLight` + one rim `directionalLight`. No shadows. No postprocessing in v1 (bloom is tempting but kills mobile FPS).
+- Each tab also rotates ±3° on its Y axis with phase offsets, giving the floating-panel feel.
+- Triangles < 3k total (planes are cheap). DPR clamped to `min(devicePixelRatio, 1.75)`.
 - `frameloop="always"`, paused via `IntersectionObserver` when off-screen.
 - Loaded with `dynamic(() => import('./SceneCanvas'), { ssr: false, loading: () => <SceneFallback /> })`.
 - Fallbacks:
-  - No WebGL → static SVG node graph.
-  - `prefers-reduced-motion` → render scene but freeze drift, no parallax.
-  - Mobile (< 480px) → simplified 16-node version, no parallax.
-- Bundle target: hero island < 120 kB gzipped JS (no postprocessing, no GLTF).
+  - No WebGL → static SVG with 6 stacked "tab" cards, same layout, no motion.
+  - `prefers-reduced-motion` → render scene but freeze drift and rotation, no parallax.
+  - Mobile (< 480px) → 4 tabs visible, no parallax, slower drift.
+- Bundle target: hero island < 130 kB gzipped JS (custom shader is small; no postprocessing, no GLTF, no transmission material).
+- _Out of scope for v1 but planned_: scroll-driven scene where the same hologram tabs travel from the hero into the Services section and snap into the grid (would justify a small `@react-three/scroll-controls` add later).
 
 ## 7. SEO & Performance
 

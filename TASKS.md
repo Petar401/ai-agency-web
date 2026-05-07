@@ -72,20 +72,23 @@ _Phased checklist. Each phase ends with `pnpm build` + `pnpm typecheck` + `pnpm 
 - [ ] Verify hero is fully usable without any client JS
 - [ ] Commit: `feat(hero): static hero with SVG fallback`
 
-## Phase 6 — 3D scene
+## Phase 6 — 3D scene (hologram service tabs)
 
 - [ ] Install: `three`, `@react-three/fiber`, `@react-three/drei`
 - [ ] `components/hero/SceneCanvas.tsx` ('use client', dynamic-import target)
-- [ ] `components/hero/NodeGraph.tsx` (InstancedMesh nodes + LineSegments edges)
+- [ ] `components/hero/HologramTabs.tsx` (6 tabs: rounded planes + custom shader: neon edge, fresnel rim, scanline noise)
+- [ ] drei `<Text>` for tab labels (SDF, no DOM overlay)
+- [ ] Subtle additive `LineSegments` filaments between adjacent tabs
+- [ ] Per-tab Y-axis rotation ±3° with phase offsets
 - [ ] DPR clamp `min(devicePixelRatio, 1.75)`
 - [ ] Lissajous camera drift; pointer parallax with damping
 - [ ] `IntersectionObserver` pause/resume
-- [ ] `prefers-reduced-motion` → freeze drift, no parallax
-- [ ] `< 480px` → simplified 16-node variant, no parallax
+- [ ] `prefers-reduced-motion` → freeze drift + rotation, no parallax
+- [ ] `< 480px` → 4 tabs visible, no parallax, slower drift
 - [ ] Wire `dynamic(() => import('./SceneCanvas'), { ssr: false, loading: SceneFallback })`
-- [ ] Verify triangle count < 4k (Stats.js drei helper, dev only)
-- [ ] Verify hero island chunk < 120 kB gz in `next build` output
-- [ ] Commit: `feat(hero): R3F automation node graph with mobile + reduced-motion fallbacks`
+- [ ] Verify triangle count < 3k (Stats drei helper, dev only)
+- [ ] Verify hero island chunk < 130 kB gz in `next build` output
+- [ ] Commit: `feat(hero): R3F holographic service tabs with mobile + reduced-motion fallbacks`
 
 ## Phase 7 — Sections
 

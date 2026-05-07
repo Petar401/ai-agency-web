@@ -82,7 +82,7 @@ Root commit: `Add NorfolkAI agency landing page in AtomAI dark style`.
 
 ## 4. Recommended Architecture
 
-Migrate to **Next.js 14 (App Router) + TypeScript + Tailwind + React Three Fiber**, single-page composition with route-level code splitting. The 3D hero ships as a `dynamic(..., { ssr: false })` island so the HTML-first payload renders instantly on mobile and indexes cleanly.
+Migrate to **Next.js 14 (App Router) + TypeScript + Tailwind + React Three Fiber**, single-page composition with route-level code splitting. The 3D hero — floating holographic service tabs in 3D space (per the user-supplied reference video `gemini_generated_video_10B4D1DB.mp4`) — ships as a `dynamic(..., { ssr: false })` island so the HTML-first payload renders instantly on mobile and indexes cleanly.
 
 Rationale (mapped to user priorities):
 - **Mobile-first**: SSG → tiny initial HTML, R3F lazy-loaded, DPR clamped, mobile-simplified scene variant.
