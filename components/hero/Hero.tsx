@@ -67,11 +67,14 @@ export function Hero() {
 
           {/* 3D / FALLBACK PANEL */}
           <div
+            data-scene-host
             className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-line-2 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.08),transparent_60%)] sm:aspect-[5/4] lg:aspect-auto lg:min-h-[520px]"
             aria-hidden
           >
             {/* Static fallback ships in the initial HTML; the R3F island mounts on top. */}
-            <SceneFallback />
+            <div data-scene-fallback className="absolute inset-0">
+              <SceneFallback />
+            </div>
             <SceneIsland />
             <div
               aria-hidden

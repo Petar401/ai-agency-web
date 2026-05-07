@@ -12,7 +12,13 @@ import { Testimonials } from '@/components/sections/Testimonials';
 export default function HomePage() {
   return (
     <>
-      <main>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-[13px] focus:font-medium focus:text-panel focus:shadow-soft"
+      >
+        Skip to main content
+      </a>
+      <main id="main">
         <Hero />
         <Services />
         <Industries />

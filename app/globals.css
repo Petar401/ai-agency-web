@@ -28,6 +28,13 @@
     border-radius: 4px;
   }
 
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  details > summary {
+    list-style: none;
+  }
+
   .on-dark *:focus-visible {
     outline-color: #fff;
   }
@@ -42,6 +49,13 @@
       rgba(255, 255, 255, 0) 55%
     );
     filter: blur(20px);
+  }
+
+  /* When the R3F island has mounted a <canvas>, fade out the static SSR fallback. */
+  [data-scene-host]:has(canvas) [data-scene-fallback] {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease-out;
   }
 
   .grain::after {
